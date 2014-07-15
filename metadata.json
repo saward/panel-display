@@ -1,0 +1,8 @@
+{
+  "name": "Panel Display",
+  "description": "Keeps primary setting while moving panel to your second monitor.",
+  "shell-version": ["3.6", "3.8", "3.10", "3.12"],
+  "url": "https://github.com/saward/panel-display",
+  "uuid": "panel-display@saward.github.com",
+  "version": 1
+}
