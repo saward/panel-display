@@ -1,6 +1,6 @@
 {
   "name": "Panel Display",
-  "description": "Keeps primary setting while moving panel to your second monitor.",
+  "description": "Keeps primary setting while moving panel to your second monitor.\nParticularly useful when games (e.g. on steam) insist on loading on your primary display.",
   "shell-version": ["3.6", "3.8", "3.10", "3.12"],
   "url": "https://github.com/saward/panel-display",
   "uuid": "panel-display@saward.github.com",
