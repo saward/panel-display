@@ -12,7 +12,8 @@ const panelBox = Main.layoutManager.panelBox;
 let originalPanelX = panelBox.x,
     originalPanelWidth = panelBox.width,
     panelAllocationHandlerId,
-    secondaryMonitorID;
+    secondaryMonitorID,
+    found = true;
 
 function init() {
     if (Main.layoutManager.primaryMonitor == Main.layoutManager.monitors[0]) {
@@ -20,22 +21,34 @@ function init() {
     } else {
         secondaryMonitorID = 0;
     }
+
+    if (Main.layoutManager.monitors[secondaryMonitorID] == undefined) {
+        found = false;
+    }
 }
 
 function enable() {
-    originalPanelX = panelBox.x;
-    originalPanelWidth = panelBox.width;
-    movePanel();
-    panelAllocationHandlerId = panelBox.connect('allocation-changed', movePanel);
+    if (found) {
+        originalPanelX = panelBox.x;
+        originalPanelWidth = panelBox.width;
+        movePanel();
+        panelAllocationHandlerId = panelBox.connect('allocation-changed', movePanel);
+    }
 }
 
 function disable() {
-    panelBox.x = originalPanelX;
-    panelBox.width = originalPanelWidth;
     panelBox.disconnect(panelAllocationHandlerId);
+    moveToIndex(Main.layoutManager.primaryIndex);
 }
 
 function movePanel() {
-    panelBox.x = Main.layoutManager.monitors[secondaryMonitorID].x;
-    panelBox.width = Main.layoutManager.monitors[secondaryMonitorID].width;
+    let index = (Main.layoutManager.primaryIndex + 1) % 2;
+    moveToIndex(index);
 }
+
+function moveToIndex(index) {
+    let monitor = Main.layoutManager.monitors[index];
+    panelBox.set_position(monitor.x, monitor.y);
+    panelBox.width = monitor.width;
+}
+
